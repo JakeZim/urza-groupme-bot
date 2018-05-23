@@ -78,7 +78,7 @@ function respond() {
 
     if (request.text && botRegex.test(request.text)) {
         console.log("Its a match!");
-        var ability = botRegex.match(request.text)[1],
+        var ability = request.text.match(botRegex)[1],
             message = getResult(ability);
         console.log("Show me " + ability);
 
