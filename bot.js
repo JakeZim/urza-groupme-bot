@@ -100,7 +100,7 @@ function getResult(ability) {
             return plusOnes[roll20];
         case "-1":
             return minusOnes[roll20];
-        case "+6":
+        case "-6":
             return minusSixes[roll20];
     }
 }
