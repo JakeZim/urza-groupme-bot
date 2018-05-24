@@ -94,7 +94,7 @@ function respond() {
 
 function getResult(ability) {
     console.log("Getting result");
-    var roll20 = Math.floor(Math.random() * 20) + 1;
+    var roll20 = Math.floor(Math.random() * 20);
     switch (ability) {
         case "+1":
             return plusOnes[roll20];
