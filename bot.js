@@ -87,7 +87,7 @@ function respond() {
     } else if (request.text && rollRegex.test(request.text)) {
         var die = request.text.match(rollRegex)[1]
         this.res.writeHead(200);
-        postMessage(roll(die);
+        postMessage(roll(die));
         this.res.end();
     } else {
         console.log("don't care");
