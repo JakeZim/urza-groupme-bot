@@ -74,7 +74,7 @@ var minusSixes = [
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         botRegex = /^[uU]rza ([+-][16])$/,
-        rollRegex = /roll ?d?([0-9]+)/;
+        rollRegex = /[rR]oll ?[dD]?([0-9]+)/;
     console.log("Trying to respond to request" + request);
 
     if (request.text && botRegex.test(request.text)) {
