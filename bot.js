@@ -84,15 +84,12 @@ function respond() {
         this.res.writeHead(200);
         postMessage(message);
         this.res.end();
-    } 
-    else if (request.text && rollRegex.test(request.text)
-    {
+    } else if (request.text && rollRegex.test(request.text) {
         var die = request.text.match(rollRegex)[1]
         this.res.writeHead(200);
         postMessage(roll(die);
         this.res.end();
-    }
-    else {
+    } else {
         console.log("don't care");
         this.res.writeHead(200);
         this.res.end();
