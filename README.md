@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This is a simple GroupMe bot that responds to certain posts. 
+This is a simple GroupMe bot that responds to certain posts.
 
 ```
 Urza +1
-Urza -2
+Urza -1
 Urza -6
 ```
 

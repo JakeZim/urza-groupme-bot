@@ -73,19 +73,26 @@ var minusSixes = [
 
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
-        botRegex = /^[uU]rza ([+-][16])$/;
+        botRegex = /^[uU]rza ([+-][16])$/,
+        rollRegex = /roll ?d?([0-9]+)/;
     console.log("Trying to respond to request" + request);
 
     if (request.text && botRegex.test(request.text)) {
-        console.log("Its a match!");
         var ability = request.text.match(botRegex)[1],
             message = getResult(ability);
-        console.log("Show me " + ability);
 
         this.res.writeHead(200);
         postMessage(message);
         this.res.end();
-    } else {
+    } 
+    else if (request.text && rollRegex.test(request.text)
+    {
+        var die = request.text.match(rollRegex)[1]
+        this.res.writeHead(200);
+        postMessage(roll(die);
+        this.res.end();
+    }
+    else {
         console.log("don't care");
         this.res.writeHead(200);
         this.res.end();
@@ -93,8 +100,7 @@ function respond() {
 }
 
 function getResult(ability) {
-    console.log("Getting result");
-    var roll20 = Math.floor(Math.random() * 20);
+    var roll20 = roll(20) - 1;
     switch (ability) {
         case "+1":
             return plusOnes[roll20];
@@ -103,6 +109,11 @@ function getResult(ability) {
         case "-6":
             return minusSixes[roll20];
     }
+}
+
+function roll(die)
+{
+    return Math.floor(Math.random() * die) + 1;
 }
 
 function postMessage(message) {
