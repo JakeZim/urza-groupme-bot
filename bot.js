@@ -124,7 +124,7 @@ function postMessage(message) {
 
     body = {
         "bot_id": botID,
-        "text": message
+        "text": String(message)
     };
 
     console.log('sending ' + message + ' to ' + botID);
