@@ -146,7 +146,7 @@ function goAround(hour)
 {
     hour = Number(hour);
     //Can't have negative times, and definitely not army times (1300+)
-    if (hour < 0) {
+    if (hour <= 0) {
         return 12 + hour;
     } else if (hour > 12) {
         return hour - 12;
