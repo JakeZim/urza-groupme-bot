@@ -126,12 +126,12 @@ function getTimes(hour, minutes, tz)
     est = goAround(est);
     cst = goAround(cst);
     pst = goAround(pst);
-    
-    est = String(est) + ":" + String(minutes) + " EST";
-    cst = String(cst) + ":" + String(minutes) + " CST";
-    pst = String(pst) + ":" + String(minutes) + " PST";
-    
-    return [est,cst,pst];
+    console.log(est + "," + cst + "," + pst);
+    var estTime = String(est) + ":" + String(minutes) + " EST";
+    var cstTime = String(cst) + ":" + String(minutes) + " CST";
+    var pstTime = String(pst) + ":" + String(minutes) + " PST";
+    console.log(estTime + "," + cstTime + "," + pstTime);
+    return [estTime,cstTime,pstTime];
 }
 
 function goAround(hour)
