@@ -107,7 +107,7 @@ function respond() {
 function getTimes(hour, minutes, tz)
 {
     hour = Number(hour);
-    console.log("Getting time for" + hour + ":" + minutes + " " + tz);
+    console.log("Getting time for " + hour + ":" + minutes + " " + tz);
     var est, cst, pst;
     if (tz == "EST" || tz == "est" || tz == "ET" || tz == "et") {
         est = hour;
@@ -136,6 +136,7 @@ function getTimes(hour, minutes, tz)
 
 function goAround(hour)
 {
+    hour = Number(hour);
     //Can't have negative times, and definitely not army times (1300+)
     if (hour < 0) {
         return 12 + hour;
