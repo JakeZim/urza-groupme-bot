@@ -75,7 +75,7 @@ function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         botRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
-        timeRegex = /^[tT]ime[s]? ([1-9][1-9]?):?([1-9][1-9])? ?(.*)$/;
+        timeRegex = /^[tT]ime[s]? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)$/;
     console.log("Trying to respond to request" + request);
 
     if (request.text && botRegex.test(request.text)) {
@@ -98,7 +98,7 @@ function respond() {
         var message = times[0] + '\n' + times[1] + '\n' + times[2];
         postMessage(message);
     } else {
-        console.log("don't care");
+        //console.log("don't care");
         this.res.writeHead(200);
         this.res.end();
     }
@@ -122,14 +122,22 @@ function getTimes(hour, minutes, tz)
         cst = hour + 2;
         pst = hour;
     }
-    console.log(est + "," + cst + "," + pst);
+    //console.log(est + "," + cst + "," + pst);
     est = goAround(est);
     cst = goAround(cst);
     pst = goAround(pst);
     //console.log(est + "," + cst + "," + pst);
-    var estTime = String(est) + ":" + String(minutes) + " EST";
-    var cstTime = String(cst) + ":" + String(minutes) + " CST";
-    var pstTime = String(pst) + ":" + String(minutes) + " PST";
+    var estTime, cstTime, pstTime;
+    if(minutes === undefined)
+    {
+        estTime = String(est) + " EST";
+        cstTime = String(cst) + " CST";
+        pstTime = String(pst) + " PST";
+    } else {
+        estTime = String(est) + ":" + String(minutes) + " EST";
+        cstTime = String(cst) + ":" + String(minutes) + " CST";
+        pstTime = String(pst) + ":" + String(minutes) + " PST";
+    }
     //console.log(estTime + "," + cstTime + "," + pstTime);
     return [estTime,cstTime,pstTime];
 }
