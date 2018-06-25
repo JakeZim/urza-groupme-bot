@@ -75,7 +75,7 @@ function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         botRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
-        timeRegex = /^[tT]imes? ([1-9][1-9]?):?([1-9][1-9])? ?(.*)$/;
+        timeRegex = /^[tT]ime[s]? ([1-9][1-9]?):?([1-9][1-9])? ?(.*)$/;
     console.log("Trying to respond to request" + request);
 
     if (request.text && botRegex.test(request.text)) {
@@ -106,27 +106,29 @@ function respond() {
 
 function getTimes(hour, minutes, tz)
 {
+    console.log("Getting time for" + hour + ":" + minutes + " " + tz);
     var est, cst, pst;
-    if (tz == 'EST' || tz == 'est' || tz == 'ET' || tz == 'et') {
+    if (tz == "EST" || tz == "est" || tz == "ET" || tz == "et") {
         est = hour;
         cst = hour - 1;
         pst = hour - 3;
-    } else if  (tz == 'CST' || tz == 'cst' || tz == 'CT' || tz == 'ct') {
+    } else if  (tz == "CST" || tz == "cst" || tz == "CT" || tz == "ct") {
         est = hour + 1;
         cst = hour;
         pst = hour - 2;
-    } else if (tz == 'PST' || tz == 'pst' || tz == 'PT' || tz == 'pt') {
+    } else if (tz == "PST" || tz == "pst" || tz == "PT" || tz == "pt") {
         est = hour + 3;
         cst = hour + 2;
         pst = hour;
     }
+    console.log(est + "," + cst + "," + pst);
     est = goAround(est);
     cst = goAround(cst);
     pst = goAround(pst);
     
-    est = String(est) + String(minutes) + 'EST';
-    cst = String(cst) + String(minutes) + 'CST';
-    pst = String(pst) + String(minutes) + 'PST';
+    est = String(est) + ":" + String(minutes) + " EST";
+    cst = String(cst) + ":" + String(minutes) + " CST";
+    pst = String(pst) + ":" + String(minutes) + " PST";
     
     return [est,cst,pst];
 }
