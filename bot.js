@@ -95,7 +95,7 @@ function respond() {
         var minutes = request.text.match(timeRegex)[2];
         var tz = request.text.match(timeRegex)[3];
         var times = getTimes(hour, minutes, tz);
-        var message = times[1] + '\n' + times[2] + '\n' + times[3];
+        var message = times[0] + '\n' + times[1] + '\n' + times[2];
         postMessage(message);
     } else {
         console.log("don't care");
@@ -107,7 +107,7 @@ function respond() {
 function getTimes(hour, minutes, tz)
 {
     hour = Number(hour);
-    console.log("Getting time for " + hour + ":" + minutes + " " + tz);
+    //console.log("Getting times for " + hour + ":" + minutes + " " + tz);
     var est, cst, pst;
     if (tz == "EST" || tz == "est" || tz == "ET" || tz == "et") {
         est = hour;
@@ -126,11 +126,11 @@ function getTimes(hour, minutes, tz)
     est = goAround(est);
     cst = goAround(cst);
     pst = goAround(pst);
-    console.log(est + "," + cst + "," + pst);
+    //console.log(est + "," + cst + "," + pst);
     var estTime = String(est) + ":" + String(minutes) + " EST";
     var cstTime = String(cst) + ":" + String(minutes) + " CST";
     var pstTime = String(pst) + ":" + String(minutes) + " PST";
-    console.log(estTime + "," + cstTime + "," + pstTime);
+    //console.log(estTime + "," + cstTime + "," + pstTime);
     return [estTime,cstTime,pstTime];
 }
 
