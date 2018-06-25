@@ -74,7 +74,8 @@ var minusSixes = [
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         botRegex = /^[uU]rza ([+-][16])$/,
-        rollRegex = /[rR]oll ?[dD]?([0-9]+)/;
+        rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
+        timeRegex = /^[tT]imes? ([1-9][1-9]?):([1-9][1-9]) ?(.*)$/;
     console.log("Trying to respond to request" + request);
 
     if (request.text && botRegex.test(request.text)) {
@@ -89,11 +90,56 @@ function respond() {
         this.res.writeHead(200);
         postMessage(roll(die));
         this.res.end();
+    } else if (request.text && timeRegex.test(request.text)) {
+        var hour = request.text.match(timeRegex)[1];
+        var minutes = request.text.match(timeRegex)[2];
+        var tz = request.text.match(timeRegex)[3];
+        var times = getTimes(hour, minutes, tz);
+        var message = times[1] + '\n' + times[2] + '\n' + times[3];
+        postMessage(message);
     } else {
         console.log("don't care");
         this.res.writeHead(200);
         this.res.end();
     }
+}
+
+function getTimes(hour, minutes, tz)
+{
+    var est, cst, pst;
+    if (tz == 'EST' || tz == 'est' || tz == 'ET' || tz == 'et') {
+        est = hour;
+        cst = hour - 1;
+        pst = hour - 3;
+    } else if  (tz == 'CST' || tz == 'cst' || tz == 'CT' || tz == 'ct') {
+        est = hour + 1;
+        cst = hour;
+        pst = hour - 2;
+    } else if (tz == 'PST' || tz == 'pst' || tz == 'PT' || tz == 'pt') {
+        est = hour + 3;
+        cst = hour + 2;
+        pst = hour;
+    }
+    est = goAround(est);
+    cst = goAround(cst);
+    pst = goAround(pst);
+    
+    est = String(est) + String(minutes) + 'EST';
+    cst = String(cst) + String(minutes) + 'CST';
+    pst = String(pst) + String(minutes) + 'EST';
+    
+    return [est,cst,pst];
+}
+
+function goAround(hour)
+{
+    //Can't have negative times, and definitely not army times (1300+)
+    if (hour < 0) {
+        return 12 + hour;
+    } else if (hour > 12) {
+        return hour - 12;
+    }
+    return hour;
 }
 
 function getResult(ability) {
