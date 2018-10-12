@@ -1,6 +1,6 @@
 var HTTPS = require('https');
 var ABILITIES = require('./abilities.js');
-//var MTG = require('./mtg-fetcher.js');
+var MTG = require('./mtg-fetcher.js');
 var botID = process.env.BOT_ID;
 
 function respond() {
@@ -36,10 +36,7 @@ function respond() {
         this.res.end();
     } else if (request.text && mtgRegex.test(request.text)) {
         var regexPieces = request.text.match(mtgRegex);
-        console.log(regexPieces[1]);
-        console.log(regexPieces[2]);
-        console.log(regexPieces[3]);
-        console.log(regexPieces[4]);
+        MTG.fetch(regexPieces[1], regexPieces[2], regexPieces[3], regexPieces[4]);
     } else {
         //console.log("don't care");
     }
