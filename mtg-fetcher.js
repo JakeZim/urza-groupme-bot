@@ -1,3 +1,5 @@
+var HTTPS = require('https');
+
 function fetch(cmc, color, power_toughness, name)
 {
     var requestParts = [];
