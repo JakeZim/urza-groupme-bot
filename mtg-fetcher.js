@@ -2,39 +2,43 @@ var HTTPS = require('https');
 
 function fetch(cmc, color, power_toughness, name)
 {
-    var requestParts = [];
-    requestParts.push("v1/cards?");
+    var card = {
+        "cmc":null,
+        "colors":null,
+        "power":null,
+        "toughness":null,
+        "name":null
+    };
     if(cmc != null)
     {
-        requestParts.push("&cmc=", cmc);
+        card.cmc = cmc;
     }
     if(color != null)
     {
-        requestParts.push("&colors=", color);
+        card.colors = color;
     }
     if(power_toughness != null)
     {
         power_toughness = power_toughness.replace("/", "\\");
         var power = power_toughness.split("\\")[0];
         var toughness = power_toughness.split("\\")[1];
-        requestParts.push("&power=", power);
-        requestParts.push("&toughness=", toughness);
+        card.power = power;
+        card.toughness = toughness;
     }
     if(name != null)
     {
-        requestParts.push("&name:", name);
+        card.name = name;
     }
-    var request = requestParts.join("").replace("&", "");
-    getCards(request);
+    getCards(card);
     //return cards[Math.floor(Math.random() * cards.size())];
 }
 
-function getCards(query) {
-    console.log(query);
+function getCards(card) {
+    console.log(card);
 
     var options = {
         hostname: 'api.magicthegathering.io',
-        path: query,
+        path: "v1/cards",
         method: 'GET'
     };
 
@@ -53,7 +57,7 @@ function getCards(query) {
     botReq.on('timeout', function (err) {
         console.log('timeout posting message ' + JSON.stringify(err));
     });
-    var response = botReq.end();
+    var response = botReq.end(card);
 }
 
 exports.fetch = fetch;
