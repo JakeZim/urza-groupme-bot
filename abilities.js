@@ -1,4 +1,4 @@
-const plusOnes = [
+export const plusOnes = [
     "Until end of turn, up to one target creature gets +1/+1 and gains first strike, vigilance, and lifelink.",
     "Distribute three +1/+1 counters among one, two, or three target creatures you control.",
     "Destroy target noncreature permanent.",
@@ -21,7 +21,7 @@ const plusOnes = [
     "Add X mana in anycombination of colors to your mana pool, where X is thenumber of creatures you control."
 ];
 
-const minusOnes = [
+export const minusOnes = [
     "Urza deals 3 damage to each creature.",
     "Gain control of target creature.",
     "Urza deals 4 damage to target creature or player and you gain 4 life.",
@@ -44,7 +44,7 @@ const minusOnes = [
     "Draw four cards and discard two cards."
 ];
 
-const minusSixes = [
+export const minusSixes = [
     "Urza deals 7 damage to target player. That player discards seven cards, then sacrifices seven permanents.",
     "You get an emblem with “If a source would deal damage to you or a planeswalker you control, prevent all but 1 of that damage.”",
     "Destroy all lands target player controls.",
