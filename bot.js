@@ -7,21 +7,19 @@ function respond() {
         botRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
         timeRegex = /[tT]imes? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)$/;
-    console.log("Trying to respond to request" + this.req);
+    //console.log("Trying to respond to request" + this.req);
 
     if (request.text && botRegex.test(request.text)) {
-        var ability = request.text.match(botRegex)[1],
-            message = getResult(ability);
+        var ability = request.text.match(botRegex)[1];
             
         this.res.writeHead(200);
-        postMessage(message);
+        postMessage(getResult(ability));
         this.res.end();
     } else if (request.text && rollRegex.test(request.text)) {
         var die = request.text.match(rollRegex)[1];
-        var message = roll(die);
         
         this.res.writeHead(200);
-        postMessage(message);
+        postMessage(roll(die));
         this.res.end();
     } else if (request.text && timeRegex.test(request.text)) {
         var hour = request.text.match(timeRegex)[1];
@@ -138,6 +136,5 @@ function postMessage(message) {
     });
     botReq.end(JSON.stringify(body));
 }
-
 
 exports.respond = respond;
