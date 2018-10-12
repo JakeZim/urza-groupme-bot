@@ -1,6 +1,5 @@
-import * as abilities from './abilities.js';
-
 var HTTPS = require('https');
+var ABILITIES = require('./abilities.js');
 var botID = process.env.BOT_ID;
 
 function respond() {
@@ -91,11 +90,11 @@ function getResult(ability) {
     var roll20 = roll(20) - 1;
     switch (ability) {
         case "+1":
-            return abilities.plusOnes[roll20];
+            return ABILITIES.plusOnes[roll20];
         case "-1":
-            return abilities.minusOnes[roll20];
+            return ABILITIES.minusOnes[roll20];
         case "-6":
-            return abilities.minusSixes[roll20];
+            return ABILITIES.minusSixes[roll20];
     }
 }
 
