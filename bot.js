@@ -12,27 +12,26 @@ function respond() {
     if (request.text && botRegex.test(request.text)) {
         var ability = request.text.match(botRegex)[1],
             message = getResult(ability);
-        writeMessage(message);
+        this.res.writeHead(200);
+        postMessage(message);
+        this.res.end();
     } else if (request.text && rollRegex.test(request.text)) {
         var die = request.text.match(rollRegex)[1];
-        writeMessage(roll(die));
+        this.res.writeHead(200);
+        postMessage(message);
+        this.res.end();
     } else if (request.text && timeRegex.test(request.text)) {
         var hour = request.text.match(timeRegex)[1];
         var minutes = request.text.match(timeRegex)[2];
         var tz = request.text.match(timeRegex)[3];
         var times = getTimes(hour, minutes, tz);
         var message = times[0] + '\n' + times[1] + '\n' + times[2];
-        writeMessage(message);
+        this.res.writeHead(200);
+        postMessage(message);
+        this.res.end();
     } else {
         //console.log("don't care");
     }
-}
-
-function writeMessage(message)
-{
-    this.res.writeHead(200);
-    postMessage();
-    this.res.end();
 }
 
 function getTimes(hour, minutes, tz)
