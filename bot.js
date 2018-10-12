@@ -9,7 +9,7 @@ function respond() {
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
         timeRegex = /[tT]imes? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)/,
         //mtg (cmc) (color) (name) (power/toughness)
-        mtgRegex = /mtg ( (([0-9]+)|([wubrg])|(.*?)|([0-9]+[\/\\][0-9+])))+/i;
+        mtgRegex = /mtg ([0-9]+)? ?([wubrg])? ?([0-9]+[\/\\][0-9+])? ?(.*)?/i;
     //console.log("Trying to respond to request" + this.req);
 
     if (request.text && botRegex.test(request.text)) {
@@ -40,8 +40,6 @@ function respond() {
         console.log(regexPieces[1]);
         console.log(regexPieces[2]);
         console.log(regexPieces[3]);
-        console.log(regexPieces[4]);
-        console.log(regexPieces[5]);
     } else {
         //console.log("don't care");
     }
