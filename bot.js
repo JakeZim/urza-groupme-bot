@@ -8,8 +8,8 @@ function respond() {
         botRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
         timeRegex = /[tT]imes? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)/,
-        //mtg (cmc) (color) (name) (power/toughness)
-        mtgRegex = /mtg ([0-9]+)? ?([wubrg])? ?([0-9]+[\/\\][0-9+])? ?(.*)?/i;
+        //mtg (cmc) (color) (power/toughness) (name)
+        mtgRegex = /mtg ([0-9]+)? ?([wubrg][ \r\n])?([0-9]+[\/\\][0-9+])? ?(.*)?/i;
     //console.log("Trying to respond to request" + this.req);
 
     if (request.text && botRegex.test(request.text)) {
@@ -36,10 +36,10 @@ function respond() {
         this.res.end();
     } else if (request.text && mtgRegex.test(request.text)) {
         var regexPieces = request.text.match(mtgRegex);
-        console.log(regexPieces[0]);
         console.log(regexPieces[1]);
         console.log(regexPieces[2]);
         console.log(regexPieces[3]);
+        console.log(regexPieces[4]);
     } else {
         //console.log("don't care");
     }
