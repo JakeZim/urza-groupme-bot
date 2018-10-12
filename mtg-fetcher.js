@@ -3,7 +3,7 @@ var HTTPS = require('https');
 function fetch(cmc, color, power_toughness, name)
 {
     var requestParts = [];
-    requestParts.push("v1/cards");
+    requestParts.push("v1/cards?");
     if(cmc != null)
     {
         requestParts.push("&cmc=", cmc);
