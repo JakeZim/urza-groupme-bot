@@ -38,9 +38,10 @@ function getCards(query) {
         method: 'GET'
     };
 
-    var botReq = HTTPS.request(options, function (res) {
+    var botReq = HTTPS.get(options, function (res) {
         if (res.statusCode == 202) {
-            //neat
+            console.log(res);
+            //console.log(JSON.parse(res).cards[0].name);
         } else {
             console.log('rejecting bad status code ' + res.statusCode);
         }
@@ -53,8 +54,6 @@ function getCards(query) {
         console.log('timeout posting message ' + JSON.stringify(err));
     });
     var response = botReq.end();
-    console.log(response);
-    console.log(JSON.parse(response).cards[0].name);
 }
 
 exports.fetch = fetch;
