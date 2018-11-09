@@ -1,22 +1,23 @@
 var HTTPS = require('https');
+var mtg = require('mtgsdk');
 
 function fetch(cmc, color, power_toughness, name)
 {
-    var card = {
-        "cmc":null,
-        "colors":null,
-        "power":null,
-        "toughness":null,
-        "name":null
-    };
-    if(cmc != null)
-    {
-        card.cmc = cmc;
-    }
-    if(color != null)
-    {
-        card.colors = color;
-    }
+    // var card = {
+    //     "cmc":null,
+    //     "colors":null,
+    //     "power":null,
+    //     "toughness":null,
+    //     "name":null
+    // };
+    // if(cmc != null)
+    // {
+    //     card.cmc = cmc;
+    // }
+    // if(color != null)
+    // {
+    //     card.colors = color;
+    // }
     if(power_toughness != null)
     {
         power_toughness = power_toughness.replace("/", "\\");
@@ -25,11 +26,13 @@ function fetch(cmc, color, power_toughness, name)
         card.power = power;
         card.toughness = toughness;
     }
-    if(name != null)
-    {
-        card.name = name;
-    }
-    getCards(card);
+    // if(name != null)
+    // {
+    //     card.name = name;
+    // 
+    
+    //getCards(card);
+    mtg.card.where({cmc: cmc, colors:color, power: power, toughness: toughness, name: name}).then(cards => console.log(cards[0].name));
     //return cards[Math.floor(Math.random() * cards.size())];
 }
 
@@ -38,14 +41,14 @@ function getCards(card) {
 
     var options = {
         hostname: 'api.magicthegathering.io',
-        path: "v1/cards",
+        path: "/v1/cards",
         method: 'GET'
     };
 
     var botReq = HTTPS.get(options, function (res) {
+        console.log(res);
         if (res.statusCode == 202) {
-            console.log(res);
-            //console.log(JSON.parse(res).cards[0].name);
+            //Cool beans
         } else {
             console.log('rejecting bad status code ' + res.statusCode);
         }
