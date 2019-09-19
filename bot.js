@@ -39,7 +39,7 @@ function respond() {
 		console.log("Fetching magic card with: " + regexPieces);
 		MTG.fetch(regexPieces[1], regexPieces[2], regexPieces[3], regexPieces[4]).then(cards => {
 			console.log("Card found: \n%o", cards[0]);
-			postImage(cards[0].name, cards[0].imageUrl);
+			postMessage(cards[0].name + "\n" + cards[0].imageUrl);
 		});
     } else {
         //console.log("don't care");
@@ -116,6 +116,9 @@ function roll(die)
 
 function postImage(title, imageUrl) {
 	var body;
+	
+	//Requires using the i.groupme.com Url of the image https://dev.groupme.com/docs/image_service
+	//meaning upload the image to their service first, then send the i.groupme.com url in the attachment's url field
 	
 	body = {
         "bot_id": botID,
