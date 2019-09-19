@@ -138,7 +138,15 @@ function postMessage(message) {
 	post(body);
 }
 
-function post(body){
+function post(body){    
+	var options, botReq;
+
+    options = {
+        hostname: 'api.groupme.com',
+        path: '/v3/bots/post',
+        method: 'POST'
+    };
+	
     console.log('sending ' + body.text + ' to ' + botID);
 
     botReq = HTTPS.request(options, function (res) {
