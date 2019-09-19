@@ -35,7 +35,7 @@ function fetch(cmc, color, power_toughness, name)
     
 	
 	//mtg.card.where({cmc: cmc, colors:color, power: power, toughness: toughness, name: name}).then(cards => console.log(cards[0].name));
-	return mtg.card.where({cmc: cmc, colors:color, power: power, toughness: toughness, name: name})[0].imageUrl;
+	return mtg.card.where({cmc: cmc, colors:color, power: power, toughness: toughness, name: name}).then(cards => cards[0].imageUrl);
     //return cards[Math.floor(Math.random() * cards.size())];
 }
 
