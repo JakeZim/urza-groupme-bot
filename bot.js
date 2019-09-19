@@ -38,7 +38,7 @@ function respond() {
         var regexPieces = request.text.match(mtgRegex);
 		console.log("Fetching magic card with: " + regexPieces);
 		MTG.fetch(regexPieces[1], regexPieces[2], regexPieces[3], regexPieces[4]).then(cards => {
-			console.log("Card found: \n" + cards[0]);
+			console.log("Card found: \n%o", cards[0]);
 			postImage(cards[0].name, cards[0].imageUrl);
 		});
     } else {
