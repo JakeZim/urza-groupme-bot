@@ -110,21 +110,36 @@ function roll(die)
     return Math.floor(Math.random() * die) + 1;
 }
 
-function postMessage(message) {
-    var options, body, botReq;
-
-    options = {
-        hostname: 'api.groupme.com',
-        path: '/v3/bots/post',
-        method: 'POST'
+function postImage(title, imageUrl) {
+	var body;
+	
+	body = {
+        "bot_id": botID,
+        "text": String(title),
+		"attachments" : [
+			{
+			  "type"  : "image",
+			  "url"   : imageUrl
+			}
+		]
     };
 
+	post(body);
+}
+
+function postMessage(message) {
+	var body;
+	
     body = {
         "bot_id": botID,
         "text": String(message)
     };
+	
+	post(body);
+}
 
-    console.log('sending ' + message + ' to ' + botID);
+function post(body){
+    console.log('sending ' + body.text + ' to ' + botID);
 
     botReq = HTTPS.request(options, function (res) {
         if (res.statusCode == 202) {
