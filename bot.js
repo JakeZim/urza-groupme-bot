@@ -37,7 +37,10 @@ function respond() {
     } else if (request.text && mtgRegex.test(request.text)) {
         var regexPieces = request.text.match(mtgRegex);
 		console.log("Fetching magic card with: " + regexPieces);
-		MTG.fetch(regexPieces[1], regexPieces[2], regexPieces[3], regexPieces[4]).then(cards => postImage(cards[0].name, cards[0].imageUrl));
+		MTG.fetch(regexPieces[1], regexPieces[2], regexPieces[3], regexPieces[4]).then(cards => {
+			console.log("Card found: \n" + cards[0]);
+			postImage(cards[0].name, cards[0].imageUrl;
+		}));
     } else {
         //console.log("don't care");
     }
