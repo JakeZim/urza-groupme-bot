@@ -36,7 +36,7 @@ function respond() {
         this.res.end();
     } else if (request.text && mtgRegex.test(request.text)) {
         var regexPieces = request.text.match(mtgRegex);
-		postMessage(MTG.fetch(regexPieces[1], regexPieces[2], regexPieces[3], regexPieces[4]));
+		MTG.fetch(regexPieces[1], regexPieces[2], regexPieces[3], regexPieces[4]).then(cards => postMessage(cards[0].imageUrl));
     } else {
         //console.log("don't care");
     }
