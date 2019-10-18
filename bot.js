@@ -47,7 +47,7 @@ function getTimes(hour, minutes, tz)
         est = hour;
         cst = hour - 1;
         pst = hour - 3;
-    } else if  (upperTZ == "CST" || upperTZ == "CT" || upperTZ == "CENTRAL" || upperTZ) {
+    } else if  (upperTZ == "CST" || upperTZ == "CT" || upperTZ == "CENTRAL" || upperTZ == "") {
         est = hour + 1;
         cst = hour;
         pst = hour - 2;
