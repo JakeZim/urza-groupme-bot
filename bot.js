@@ -6,7 +6,7 @@ function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         botRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
-        timeRegex = /[tT]imes? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)$/;
+        timeRegex = /^[tT]imes? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)$/;
     //console.log("Trying to respond to request" + this.req);
 
     if (request.text && botRegex.test(request.text)) {
@@ -39,10 +39,9 @@ function respond() {
 function getTimes(hour, minutes, tz)
 {
     hour = Number(hour);
-    console.log("Getting times for " + hour + ":" + minutes + " " + tz);
+    //console.log("Getting times for " + hour + ":" + minutes + " " + tz);
     var est, cst, pst;
     var upperTZ = tz.toUpperCase();
-	console.log("Upper TZ = " + upperTZ);
     if (upperTZ == "EST" || upperTZ == "ET" || upperTZ == "EASTERN") {
         est = hour;
         cst = hour - 1;
