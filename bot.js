@@ -26,7 +26,12 @@ function respond() {
         var minutes = request.text.match(timeRegex)[2];
         var tz = request.text.match(timeRegex)[3];
         var times = getTimes(hour, minutes, tz);
-        var message = times[0] + '\n' + times[1] + '\n' + times[2];
+		var message;
+		if(times.length == 3) {
+			message = times[0] + '\n' + times[1] + '\n' + times[2];
+		} else {
+			message = times[0];
+		}
         
         this.res.writeHead(200);
         postMessage(message);
@@ -54,11 +59,8 @@ function getTimes(hour, minutes, tz)
         est = hour + 3;
         cst = hour + 2;
         pst = hour;
-    }
-	else {
-		this.res.writeHead(200);
-        postMessage("What plane are you from? The only valid timezones are EST, CST, and PST!");
-        this.res.end();
+    } else {
+		return ["What plane are you from? The only valid timezones are EST, CST, and PST!"];
 	}
     //console.log(est + "," + cst + "," + pst);
     est = goAround(est);
