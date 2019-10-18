@@ -39,18 +39,19 @@ function respond() {
 function getTimes(hour, minutes, tz)
 {
     hour = Number(hour);
-    //console.log("Getting times for " + hour + ":" + minutes + " " + tz);
+    console.log("Getting times for " + hour + ":" + minutes + " " + tz);
     var est, cst, pst;
     var upperTZ = tz.toUpperCase();
-    if (upperTZ == "EST" || upperTZ == "ET") {
+	console.log("Upper TZ = " + upperTZ);
+    if (upperTZ == "EST" || upperTZ == "ET" || upperTZ == "EASTERN") {
         est = hour;
         cst = hour - 1;
         pst = hour - 3;
-    } else if  (upperTZ == "CST" || upperTZ == "CT") {
+    } else if  (upperTZ == "CST" || upperTZ == "CT" || upperTZ == "CENTRAL" || upperTZ) {
         est = hour + 1;
         cst = hour;
         pst = hour - 2;
-    } else if (upperTZ == "PST" || upperTZ == "PT") {
+    } else if (upperTZ == "PST" || upperTZ == "PT" || upperTZ == "PACIFIC") {
         est = hour + 3;
         cst = hour + 2;
         pst = hour;
