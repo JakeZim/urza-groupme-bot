@@ -55,6 +55,11 @@ function getTimes(hour, minutes, tz)
         cst = hour + 2;
         pst = hour;
     }
+	else {
+		this.res.writeHead(200);
+        postMessage("What plane are you from? The only valid timezones are EST, CST, and PST!");
+        this.res.end();
+	}
     //console.log(est + "," + cst + "," + pst);
     est = goAround(est);
     cst = goAround(cst);
