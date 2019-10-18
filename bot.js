@@ -6,7 +6,7 @@ function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         botRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
-        timeRegex = /[tT]imes? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)$/;
+        timeRegex = /^[tT]imes? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)$/;
     //console.log("Trying to respond to request" + this.req);
 
     if (request.text && botRegex.test(request.text)) {
@@ -26,7 +26,12 @@ function respond() {
         var minutes = request.text.match(timeRegex)[2];
         var tz = request.text.match(timeRegex)[3];
         var times = getTimes(hour, minutes, tz);
-        var message = times[0] + '\n' + times[1] + '\n' + times[2];
+        var message;
+        if(times.length == 3) {
+            message = times[0] + '\n' + times[1] + '\n' + times[2];
+        } else {
+            message = times[0];
+        }
         
         this.res.writeHead(200);
         postMessage(message);
@@ -42,18 +47,20 @@ function getTimes(hour, minutes, tz)
     //console.log("Getting times for " + hour + ":" + minutes + " " + tz);
     var est, cst, pst;
     var upperTZ = tz.toUpperCase();
-    if (upperTZ == "EST" || upperTZ == "ET") {
+    if (upperTZ == "EST" || upperTZ == "ET" || upperTZ == "EASTERN") {
         est = hour;
         cst = hour - 1;
         pst = hour - 3;
-    } else if  (upperTZ == "CST" || upperTZ == "CT") {
+    } else if  (upperTZ == "CST" || upperTZ == "CT" || upperTZ == "CENTRAL" || upperTZ == "") {
         est = hour + 1;
         cst = hour;
         pst = hour - 2;
-    } else if (upperTZ == "PST" || upperTZ == "PT") {
+    } else if (upperTZ == "PST" || upperTZ == "PT" || upperTZ == "PACIFIC") {
         est = hour + 3;
         cst = hour + 2;
         pst = hour;
+    } else {
+        return ["What plane are you from? The only valid timezones are EST, CST, and PST!"];
     }
     //console.log(est + "," + cst + "," + pst);
     est = goAround(est);
