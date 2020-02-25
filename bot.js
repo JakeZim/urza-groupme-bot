@@ -4,15 +4,15 @@ var botID = process.env.BOT_ID;
 
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
-        botRegex = /^[uU]rza ([+-][16])$/,
+        urzaRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
         timeRegex = /^[tT]imes? ([0-1]?[0-9]):?([0-5]?[0-9])? ?(.*)$/;
     //console.log("Trying to respond to request" + this.req);
 
     if (request.text) {
         var message;    
-        if(botRegex.test(request.text)) {
-            var ability = request.text.match(botRegex)[1];
+        if(urzaRegex.test(request.text)) {
+            var ability = request.text.match(urzaRegex)[1];
             message = getResult(ability);
         } else if (rollRegex.test(request.text)) {
             var die = request.text.match(rollRegex)[1];
