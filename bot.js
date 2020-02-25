@@ -4,40 +4,38 @@ var botID = process.env.BOT_ID;
 
 function respond() {
     var request = JSON.parse(this.req.chunks[0]),
-        botRegex = /^[uU]rza ([+-][16])$/,
+        urzaRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
-        timeRegex = /^[tT]imes? ([1-9][1-9]?):?([0-9][0-9])? ?(.*)$/;
+        timeRegex = /^[tT]imes? ([0-1]?[0-9]):?([0-5]?[0-9])? ?(.*)$/;
     //console.log("Trying to respond to request" + this.req);
 
-    if (request.text && botRegex.test(request.text)) {
-        var ability = request.text.match(botRegex)[1];
-            
-        this.res.writeHead(200);
-        postMessage(getResult(ability));
-        this.res.end();
-    } else if (request.text && rollRegex.test(request.text)) {
-        var die = request.text.match(rollRegex)[1];
-        
-        this.res.writeHead(200);
-        postMessage(roll(die));
-        this.res.end();
-    } else if (request.text && timeRegex.test(request.text)) {
-        var hour = request.text.match(timeRegex)[1];
-        var minutes = request.text.match(timeRegex)[2];
-        var tz = request.text.match(timeRegex)[3];
-        var times = getTimes(hour, minutes, tz);
-        var message;
-        if(times.length == 3) {
-            message = times[0] + '\n' + times[1] + '\n' + times[2];
+    if (request.text) {
+        var message;    
+        if(urzaRegex.test(request.text)) {
+            var ability = request.text.match(urzaRegex)[1];
+            message = getResult(ability);
+        } else if (rollRegex.test(request.text)) {
+            var die = request.text.match(rollRegex)[1];
+            message = roll(die);
+        } else if (timeRegex.test(request.text)) {
+            var hour = request.text.match(timeRegex)[1];
+            var minutes = request.text.match(timeRegex)[2];
+            var tz = request.text.match(timeRegex)[3];
+            var times = getTimes(hour, minutes, tz);
+            if(times.length == 3) {
+                message = times[0] + '\n' + times[1] + '\n' + times[2];
+            } else {
+                //One message is returned if there was an error
+                message = times[0];
+                return;
+            }
         } else {
-            message = times[0];
+            //console.log("not a command");
+            return;
         }
-        
         this.res.writeHead(200);
         postMessage(message);
         this.res.end();
-    } else {
-        //console.log("don't care");
     }
 }
 
@@ -74,6 +72,10 @@ function getTimes(hour, minutes, tz)
         cstTime = String(cst) + " CST";
         pstTime = String(pst) + " PST";
     } else {
+        if(minutes.length == 1)
+        {
+            minutes = '0' + minutes;
+        }
         estTime = String(est) + ":" + String(minutes) + " EST";
         cstTime = String(cst) + ":" + String(minutes) + " CST";
         pstTime = String(pst) + ":" + String(minutes) + " PST";
