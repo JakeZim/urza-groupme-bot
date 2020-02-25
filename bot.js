@@ -6,7 +6,7 @@ function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         botRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
-        timeRegex = /^[tT]imes? ([0-2]?[0-9]):?([0-5]?[0-9]) ?(.*)$/;
+        timeRegex = /^[tT]imes? ([0-1]?[0-9]):?([0-5]?[0-9]) ?(.*)$/;
     //console.log("Trying to respond to request" + this.req);
 
     if (request.text) {
@@ -72,6 +72,10 @@ function getTimes(hour, minutes, tz)
         cstTime = String(cst) + " CST";
         pstTime = String(pst) + " PST";
     } else {
+        if(minutes.length == 1)
+        {
+            minutes = '0' + minutes;
+        }
         estTime = String(est) + ":" + String(minutes) + " EST";
         cstTime = String(cst) + ":" + String(minutes) + " CST";
         pstTime = String(pst) + ":" + String(minutes) + " PST";
