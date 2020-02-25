@@ -6,7 +6,7 @@ function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         botRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
-        timeRegex = /^[tT]imes? ([0-1]?[0-9]):?([0-5]?[0-9]) ?(.*)$/;
+        timeRegex = /^[tT]imes? ([0-1]?[0-9]):?([0-5]?[0-9])? ?(.*)$/;
     //console.log("Trying to respond to request" + this.req);
 
     if (request.text) {
@@ -25,8 +25,7 @@ function respond() {
             if(times.length == 3) {
                 message = times[0] + '\n' + times[1] + '\n' + times[2];
             } else {
-                //how could the code get here? getTimes() throws an error maybe?
-                console.log("One time returned:\n" + times[0]);
+                message = times[0];
                 return;
             }
         } else {
