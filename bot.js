@@ -25,6 +25,7 @@ function respond() {
             if(times.length == 3) {
                 message = times[0] + '\n' + times[1] + '\n' + times[2];
             } else {
+                //One message is returned if there was an error
                 message = times[0];
                 return;
             }
