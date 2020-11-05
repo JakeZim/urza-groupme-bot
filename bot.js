@@ -6,7 +6,9 @@ function respond() {
     var request = JSON.parse(this.req.chunks[0]),
         urzaRegex = /^[uU]rza ([+-][16])$/,
         rollRegex = /[rR]oll ?[dD]?([0-9]+)/,
-        timeRegex = /^[tT]imes? ([0-1]?[0-9]):?([0-5]?[0-9])? ?(.*)$/;
+        timeRegex = /^[tT]imes? ([0-1]?[0-9]):?([0-5]?[0-9])? ?(.*)$/,
+        helpRegex = /^[uU]rza [hH]elp$/,
+        aboutRegex = /^[aA]bout [uU]rza$/;
     //console.log("Trying to respond to request" + this.req);
 
     if (request.text) {
@@ -29,6 +31,15 @@ function respond() {
                 message = times[0];
                 return;
             }
+        } else if (helpRegex.test(request.text)) {
+            message = "My current spells are as follows:\n \
+                Urza (+1/-1/-6) : Trigger one of my amazing planeswalker abilities \n \
+                Roll dX : Roll a dice with X sides \n \
+                Times HH TZ : Get the hour (HH) conversion between different TZs (PST/CST/EST) \n \
+                About Urza : A link to my source code \n \
+                Urza Help : See above";
+        } else if (aboutRegex.test(request.text)) {
+            message = "https://github.com/JakeZim/urza-groupme-bot";
         } else {
             //console.log("not a command");
             return;
