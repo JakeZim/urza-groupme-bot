@@ -35,9 +35,9 @@ function respond() {
 			message = "My current spells are as follows:\n \
 				Urza (+1/-1/-6) : Trigger one of my amazing planeswalker abilities \n \
 				Roll dX : Roll a dice with X sides \n \
-				Times HH TZ : Get the time conversion between different TZs (PST/CST/EST) \n \
+				Times HH TZ : Get the hour (HH) conversion between different TZs (PST/CST/EST) \n \
 				About Urza : A link to my source code \n \
-				Urza Help : See above ";
+				Urza Help : See above";
 		} else if (aboutRegex.test(request.text)) {
 			message = "https://github.com/JakeZim/urza-groupme-bot";
 		} else {
