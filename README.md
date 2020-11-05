@@ -16,6 +16,8 @@ It uses the https://dev.groupme.com/ API to read and respond to posts.
 | roll dX | A result between 1 and X | Inline |
 | Time(s) HH (CST\PST\EST) | The hours HH converted to all three timezones. | Whole line |
 | Time(s) HH:MM (CST\PST\EST) | The hours HH converted to all three timezones with the minutes MM appended. | Whole line |
+| About Urza | A link to this github repository | Whole line |
+| Urza Help | A list of the supported commands. Similar to this table | Whole line |
 
 Urza abilities are from the AskUrza.com site responses.
 
