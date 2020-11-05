@@ -18,3 +18,5 @@ It uses the https://dev.groupme.com/ API to read and respond to posts.
 | Time(s) HH:MM (CST\PST\EST) | The hours HH converted to all three timezones with the minutes MM appended. | Whole line |
 
 Urza abilities are from the AskUrza.com site responses.
+
+Based on https://github.com/groupme/bot-tutorial-nodejs
